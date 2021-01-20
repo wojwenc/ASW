@@ -16,12 +16,12 @@ def on_message_local(client_local, userdata, msg):
     if value == '1':
         path = "/sys/bus/iio/devices/iio:device0/in_temp_input"
         with open(path,'r',encoding = 'utf-8') as f:
-            client_local.publish("sensors/bme280/temp", str(f.read()))
+            client_local.publish("sensors/bme280/temp", str(int(f.read())/1000))
 
 client_local = mqtt.Client()
 client_local.on_connect = on_connect_local
 client_local.on_message = on_message_local
-client_local.connect("localhost", 1883, 60)
+client_local.connect("192.168.51.231", 1883, 60)
 
 
 # Blocking call that processes network traffic, dispatches callbacks and
