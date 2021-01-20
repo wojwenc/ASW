@@ -11,9 +11,8 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.payload)
     if 'temp' in msg.topic:
-        print(msg.payload)
+        print(msg.payload.decode('utf-8'))
 
 client = mqtt.Client()
 client.on_connect = on_connect
@@ -30,7 +29,7 @@ def on_connect_local(client_local, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message_local(client_local, userdata, msg):
     if 'temp' in msg.topic:
-        print(msg.payload)
+        print(float(msg.payload))
 
 client_local = mqtt.Client()
 client_local.on_connect = on_connect_local

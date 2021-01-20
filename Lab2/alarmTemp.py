@@ -12,12 +12,12 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     if 'temp' in msg.topic:
-        val = int(msg.payload)/1000
+        val = int(msg.payload)
         print(val)
         if val > 28:
-            client.publish("led/504", 1)
+            client_local.publish("led/504", 1)
         else:
-            client.publish("led/504", 0)
+            client_local.publish("led/504", 0)
 
 client = mqtt.Client()
 client.on_connect = on_connect
@@ -34,7 +34,7 @@ def on_connect_local(client_local, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message_local(client_local, userdata, msg):
     if 'temp' in msg.topic:
-        val = int(msg.payload)/1000
+        val = float(msg.payload)
         print(val)
         if val > 28:
             client_local.publish("led/504", 1)
